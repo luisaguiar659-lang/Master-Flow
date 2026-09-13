@@ -3,19 +3,13 @@ package com.masterflow.app.modules.cloud
 import android.app.Activity
 import android.os.Bundle
 import android.graphics.Color
+import android.content.Intent
 import android.view.Gravity
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 
 class XcloudActivity : Activity() {
-
-    private val deviceManager = XcloudDeviceManager()
-    private val macManager = XcloudMacManager()
-    private val dnsManager = XcloudDnsManager()
-    private val resellerManager = XcloudResellerManager()
-    private val automationEngine = XcloudAutomationEngine()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +27,21 @@ class XcloudActivity : Activity() {
         title.gravity = Gravity.CENTER
         layout.addView(title)
 
-        addButton(layout, "DEVICES") { show("Devices: ${deviceManager.listDevices().size}") }
-        addButton(layout, "MAC MANAGER") { show("MACs: ${macManager.list().size}") }
-        addButton(layout, "DNS MANAGER") { show("DNS: ${if (dnsManager.getDns().isEmpty()) 0 else 1}") }
-        addButton(layout, "AUTOMAÇÃO") { automationEngine.start(); show("Automação iniciada") }
-        addButton(layout, "REVENDEDORES") { show("Revendas: ${resellerManager.listResellers().size}") }
+        addButton(layout, "DEVICES") {
+            startActivity(Intent(this, XcloudDevicesActivity::class.java))
+        }
+
+        addButton(layout, "MAC MANAGER") {
+        }
+
+        addButton(layout, "DNS MANAGER") {
+        }
+
+        addButton(layout, "AUTOMAÇÃO") {
+        }
+
+        addButton(layout, "REVENDEDORES") {
+        }
 
         val status = TextView(this)
         status.text = "\nCloud Engine ONLINE ✅"
@@ -47,10 +51,6 @@ class XcloudActivity : Activity() {
         layout.addView(status)
 
         setContentView(layout)
-    }
-
-    private fun show(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun addButton(layout: LinearLayout, text: String, action: () -> Unit) {

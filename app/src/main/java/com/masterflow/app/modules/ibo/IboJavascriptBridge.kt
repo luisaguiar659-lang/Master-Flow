@@ -1,19 +1,28 @@
 package com.masterflow.app.modules.ibo
 
-class IboJavascriptBridge {
-
-    private var loggedIn = false
+class IboJavascriptBridge(
+    private val sessionManager: IboSessionManager
+) {
 
     fun login(user: String, password: String): Boolean {
-        loggedIn = user.isNotEmpty() && password.isNotEmpty()
-        return loggedIn
+        val success = user.isNotEmpty() && password.isNotEmpty()
+
+        if (success) {
+            sessionManager.login(user)
+        }
+
+        return success
     }
 
     fun logout() {
-        loggedIn = false
+        sessionManager.logout()
     }
 
     fun isLogged(): Boolean {
-        return loggedIn
+        return sessionManager.isAuthenticated()
+    }
+
+    fun getUser(): String {
+        return sessionManager.getUser()
     }
 }

@@ -4,9 +4,9 @@ import android.app.Activity
 import android.os.Bundle
 import android.content.Intent
 import android.graphics.Color
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.view.Gravity
+import android.widget.*
+
 import com.masterflow.app.modules.ModuleManager
 
 class MainActivity : Activity() {
@@ -15,32 +15,109 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
 
         val layout = LinearLayout(this)
+
         layout.orientation = LinearLayout.VERTICAL
-        layout.gravity = android.view.Gravity.CENTER
-        layout.setPadding(40, 40, 40, 40)
+        layout.gravity = Gravity.CENTER
+        layout.setPadding(40,40,40,40)
         layout.setBackgroundColor(Color.BLACK)
 
+
+        val logo = ImageView(this)
+
+        logo.setImageResource(
+            com.masterflow.app.R.drawable.xcore_icon
+        )
+
+        layout.addView(
+            logo,
+            LinearLayout.LayoutParams(
+                300,
+                300
+            )
+        )
+
+
         val title = TextView(this)
-        title.text = "XCORE\n\nSistema iniciado ✅"
-        title.textSize = 26f
+
+        title.text = "XCORE"
+        title.textSize = 30f
         title.setTextColor(Color.WHITE)
-        title.gravity = android.view.Gravity.CENTER
+        title.gravity = Gravity.CENTER
+
 
         layout.addView(title)
 
+
+        val subtitle = TextView(this)
+
+        subtitle.text =
+            "Central de Automação"
+
+        subtitle.textSize = 16f
+        subtitle.setTextColor(Color.GRAY)
+
+        subtitle.gravity = Gravity.CENTER
+
+
+        layout.addView(subtitle)
+
+
         val modules = ModuleManager().getModules()
 
+
         modules.forEach { module ->
+
             val button = Button(this)
+
             button.text = module
+
+            button.setTextColor(Color.WHITE)
+
+            button.setBackgroundColor(
+                Color.rgb(180,0,0)
+            )
+
+
             button.setOnClickListener {
-                val intent = Intent(this, XcoreModuleActivity::class.java)
-                intent.putExtra("module", module)
+
+                val intent =
+                    Intent(
+                        this,
+                        XcoreModuleActivity::class.java
+                    )
+
+                intent.putExtra(
+                    "module",
+                    module
+                )
+
                 startActivity(intent)
+
             }
-            layout.addView(button)
+
+
+            val params =
+                LinearLayout.LayoutParams(
+                    -1,
+                    120
+                )
+
+            params.setMargins(
+                0,
+                20,
+                0,
+                0
+            )
+
+            layout.addView(
+                button,
+                params
+            )
+
         }
 
+
         setContentView(layout)
+
     }
 }

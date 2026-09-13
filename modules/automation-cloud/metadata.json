@@ -1,0 +1,8 @@
+{
+  "name": "automation-cloud",
+  "type": "module",
+  "source": "luisaguiar659-lang/automation-cloud",
+  "status": "ready",
+  "description": "Modulo responsável pelas automações do projeto automation-cloud. O motor original deve permanecer isolado.",
+  "integration": "pending"
+}

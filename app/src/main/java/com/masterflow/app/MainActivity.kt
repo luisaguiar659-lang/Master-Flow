@@ -22,7 +22,6 @@ class MainActivity : Activity() {
 
         val logo = ImageView(this)
         logo.setImageResource(com.masterflow.app.R.drawable.xcore_icon)
-
         layout.addView(logo, LinearLayout.LayoutParams(300,300))
 
         val title = TextView(this)
@@ -50,15 +49,17 @@ class MainActivity : Activity() {
 
             button.setOnClickListener {
                 val intent = Intent(this, XcoreModuleActivity::class.java)
-                intent.putExtra("module", module.name)
+
+                intent.putExtra("name", module.name)
                 intent.putExtra("description", module.description)
                 intent.putExtra("version", module.version)
+                intent.putExtra("status", module.status)
+
                 startActivity(intent)
             }
 
             val params = LinearLayout.LayoutParams(-1,120)
             params.setMargins(0,20,0,0)
-
             layout.addView(button, params)
         }
 

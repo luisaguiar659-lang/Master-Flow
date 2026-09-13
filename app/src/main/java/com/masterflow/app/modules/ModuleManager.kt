@@ -4,8 +4,8 @@ class ModuleManager {
 
     fun getModules(): List<String> {
         return listOf(
-            "Automation Cloud",
-            "Master IBO"
+            "XCORE CLOUD",
+            "XCORE IBO"
         )
     }
 }

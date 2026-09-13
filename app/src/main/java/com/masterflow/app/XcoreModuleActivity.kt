@@ -4,16 +4,15 @@ import android.app.Activity
 import android.os.Bundle
 import android.graphics.Color
 import android.view.Gravity
-import android.widget.*
+import android.widget.LinearLayout
+import android.widget.TextView
 
 class XcoreModuleActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val module =
-            intent.getStringExtra("module") ?: "XCORE"
-
+        val module = intent.getStringExtra("module") ?: "XCORE"
 
         val layout = LinearLayout(this)
 
@@ -25,84 +24,37 @@ class XcoreModuleActivity : Activity() {
 
         val title = TextView(this)
 
-        title.text = "XCORE"
-        title.textSize = 32f
+        title.text = "XCORE\n\n$module"
+
+        title.textSize = 28f
         title.setTextColor(Color.WHITE)
         title.gravity = Gravity.CENTER
+
 
         layout.addView(title)
 
 
-        val moduleName = TextView(this)
+        val info = TextView(this)
 
-        moduleName.text = module
-        moduleName.textSize = 24f
-        moduleName.setTextColor(
-            Color.rgb(255,0,0)
-        )
+        info.text = """
+            Sistema iniciado ✅
 
-        moduleName.gravity = Gravity.CENTER
+            Módulo: $module
 
+            Versão: 1.0
 
-        layout.addView(moduleName)
-
-
-        val status = TextView(this)
-
-        status.text =
-            "Módulo carregado ✅"
-
-        status.textSize = 18f
-
-        status.setTextColor(
-            Color.LTGRAY
-        )
-
-        status.gravity = Gravity.CENTER
+            Status: ONLINE
+        """.trimIndent()
 
 
-        layout.addView(status)
+        info.textSize = 18f
+        info.setTextColor(Color.GRAY)
+        info.gravity = Gravity.CENTER
 
 
-
-        if(module == "XCORE IBO") {
-
-            val info = TextView(this)
-
-            info.text =
-                "\nGerenciamento IBO\nAutomação e controle"
-
-            info.setTextColor(Color.WHITE)
-
-            info.textSize = 16f
-
-            info.gravity = Gravity.CENTER
-
-            layout.addView(info)
-
-        }
-
-
-
-        if(module == "XCORE CLOUD") {
-
-            val info = TextView(this)
-
-            info.text =
-                "\nCloud System\nServiços online"
-
-            info.setTextColor(Color.WHITE)
-
-            info.textSize = 16f
-
-            info.gravity = Gravity.CENTER
-
-            layout.addView(info)
-
-        }
+        layout.addView(info)
 
 
         setContentView(layout)
-
     }
 }

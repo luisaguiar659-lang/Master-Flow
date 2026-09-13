@@ -25,17 +25,18 @@ jobs:
       - name: Configurar Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Verificar projeto Gradle
-        run: ls -la
+      - name: Criar keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > master-flow-release.jks
 
       - name: Dar permissão ao Gradle Wrapper
         run: chmod +x ./gradlew
 
-      - name: Build APK Debug
-        run: ./gradlew assembleDebug
+      - name: Build APK Release Assinado
+        run: ./gradlew assembleRelease
 
-      - name: Enviar APK
+      - name: Enviar APK Release
         uses: actions/upload-artifact@v4
         with:
-          name: Master-Flow-debug
-          path: app/build/outputs/apk/debug/*.apk
+          name: Master-Flow-release
+          path: app/build/outputs/apk/release/*.apk

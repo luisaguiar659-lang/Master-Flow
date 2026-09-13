@@ -15,7 +15,7 @@ class MainActivity : Activity() {
         val modules = moduleManager.getModules()
 
         val text = TextView(this)
-        text.text = "MASTER FLOW\n\nSistema iniciado ✅\n\nMódulos encontrados:\n\n" + modules.joinToString("\n")
+        text.text = "XCORE\n\nSistema iniciado ✅\n\nMódulos encontrados:\n\n" + modules.joinToString("\n")
         text.textSize = 22f
         text.setTextColor(Color.WHITE)
         text.setBackgroundColor(Color.BLACK)

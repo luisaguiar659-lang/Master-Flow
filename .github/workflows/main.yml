@@ -28,5 +28,8 @@ jobs:
       - name: Verificar projeto Gradle
         run: ls -la
 
+      - name: Dar permissão ao Gradle Wrapper
+        run: chmod +x ./gradlew
+
       - name: Build APK Debug
         run: ./gradlew assembleDebug

@@ -1,25 +1,35 @@
 package com.masterflow.app.modules.ibo
 
-class IboSessionManager {
+import android.content.Context
 
-    private var authenticated = false
-    private var email = ""
+class IboSessionManager(private val context: Context) {
 
-    fun login(user: String) {
-        email = user
-        authenticated = true
+    private val prefs = context.getSharedPreferences(
+        "xcore_ibo_session",
+        Context.MODE_PRIVATE
+    )
+
+    fun login(user: String, token: String = "") {
+        prefs.edit()
+            .putString("email", user)
+            .putString("token", token)
+            .putBoolean("authenticated", true)
+            .apply()
     }
 
     fun logout() {
-        email = ""
-        authenticated = false
+        prefs.edit().clear().apply()
     }
 
     fun isAuthenticated(): Boolean {
-        return authenticated
+        return prefs.getBoolean("authenticated", false)
     }
 
     fun getUser(): String {
-        return email
+        return prefs.getString("email", "") ?: ""
+    }
+
+    fun getToken(): String {
+        return prefs.getString("token", "") ?: ""
     }
 }

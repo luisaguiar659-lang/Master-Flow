@@ -15,6 +15,19 @@ android {
         versionName = "1.0"
     }
 
+    signingConfigs {
+        create("release") {
+            // As chaves reais serão inseridas via GitHub Secrets
+        }
+    }
+
+    buildTypes {
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = false
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

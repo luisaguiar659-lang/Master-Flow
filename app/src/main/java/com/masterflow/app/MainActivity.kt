@@ -44,20 +44,16 @@ class MainActivity : Activity() {
         title.setTextColor(Color.WHITE)
         title.gravity = Gravity.CENTER
 
-
         layout.addView(title)
 
 
         val subtitle = TextView(this)
 
-        subtitle.text =
-            "Central de Automação"
+        subtitle.text = "Central de Automação"
 
         subtitle.textSize = 16f
         subtitle.setTextColor(Color.GRAY)
-
         subtitle.gravity = Gravity.CENTER
-
 
         layout.addView(subtitle)
 
@@ -69,7 +65,7 @@ class MainActivity : Activity() {
 
             val button = Button(this)
 
-            button.text = module
+            button.text = "${module.name}\n${module.status}"
 
             button.setTextColor(Color.WHITE)
 
@@ -80,27 +76,24 @@ class MainActivity : Activity() {
 
             button.setOnClickListener {
 
-                val intent =
-                    Intent(
-                        this,
-                        XcoreModuleActivity::class.java
-                    )
+                val intent = Intent(
+                    this,
+                    XcoreModuleActivity::class.java
+                )
 
                 intent.putExtra(
                     "module",
-                    module
+                    module.name
                 )
 
                 startActivity(intent)
-
             }
 
 
-            val params =
-                LinearLayout.LayoutParams(
-                    -1,
-                    120
-                )
+            val params = LinearLayout.LayoutParams(
+                -1,
+                120
+            )
 
             params.setMargins(
                 0,
@@ -109,15 +102,14 @@ class MainActivity : Activity() {
                 0
             )
 
+
             layout.addView(
                 button,
                 params
             )
-
         }
 
 
         setContentView(layout)
-
     }
 }

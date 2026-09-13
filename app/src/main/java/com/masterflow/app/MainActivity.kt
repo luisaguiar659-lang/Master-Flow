@@ -9,6 +9,7 @@ import android.widget.*
 
 import com.masterflow.app.modules.ModuleManager
 import com.masterflow.app.modules.ibo.IboActivity
+import com.masterflow.app.modules.cloud.XcloudActivity
 
 class MainActivity : Activity() {
 
@@ -60,13 +61,16 @@ class MainActivity : Activity() {
                     return@setOnClickListener
                 }
 
-                val intent = Intent(this, XcoreModuleActivity::class.java)
+                if (module.name.contains("CLOUD", ignoreCase = true)) {
+                    startActivity(Intent(this, XcloudActivity::class.java))
+                    return@setOnClickListener
+                }
 
+                val intent = Intent(this, XcoreModuleActivity::class.java)
                 intent.putExtra("name", module.name)
                 intent.putExtra("description", module.description)
                 intent.putExtra("version", module.version)
                 intent.putExtra("status", module.status)
-
                 startActivity(intent)
             }
 

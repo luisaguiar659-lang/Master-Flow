@@ -2,7 +2,8 @@
 
     <application
         android:theme="@style/AppTheme"
-        android:label="Master-Flow">
+        android:label="XCORE"
+        android:icon="@drawable/xcore_icon">
 
         <activity
             android:name=".MainActivity"

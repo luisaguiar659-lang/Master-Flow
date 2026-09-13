@@ -8,6 +8,7 @@ import android.webkit.WebView
 class IboActivity : Activity() {
 
     private lateinit var webView: WebView
+    private val session = IboSessionManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,12 +20,17 @@ class IboActivity : Activity() {
         settings.domStorageEnabled = true
 
         webView.webViewClient = IboWebViewClient()
+
         webView.addJavascriptInterface(
-            IboJavascriptBridge(),
+            IboJavascriptBridge(session),
             "XCORE"
         )
 
-        webView.loadUrl(IboConfig.PANEL_URL)
+        if (session.isAuthenticated()) {
+            webView.loadUrl(IboConfig.PANEL_URL)
+        } else {
+            webView.loadUrl(IboConfig.LOGIN_URL)
+        }
 
         setContentView(webView)
     }

@@ -8,10 +8,12 @@ import android.webkit.WebView
 class IboActivity : Activity() {
 
     private lateinit var webView: WebView
-    private val session = IboSessionManager()
+    private lateinit var session: IboSessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        session = IboSessionManager(this)
 
         webView = WebView(this)
 

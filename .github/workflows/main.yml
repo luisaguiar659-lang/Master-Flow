@@ -33,3 +33,9 @@ jobs:
 
       - name: Build APK Debug
         run: ./gradlew assembleDebug
+
+      - name: Enviar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Master-Flow-debug
+          path: app/build/outputs/apk/debug/*.apk

@@ -12,6 +12,14 @@
             android:exported="false" />
 
         <activity
+            android:name=".modules.cloud.XcloudActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".modules.cloud.XcloudDevicesActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

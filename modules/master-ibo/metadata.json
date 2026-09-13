@@ -1,0 +1,8 @@
+{
+  "name": "master-ibo",
+  "type": "module",
+  "source": "luisaguiar659-lang/master-ibo",
+  "status": "ready",
+  "description": "Modulo responsável pelo projeto master-ibo. O motor original deve permanecer isolado.",
+  "integration": "pending"
+}

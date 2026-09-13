@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.widget.*
 
 import com.masterflow.app.modules.ModuleManager
+import com.masterflow.app.modules.ibo.IboActivity
 
 class MainActivity : Activity() {
 
@@ -48,6 +49,12 @@ class MainActivity : Activity() {
             button.setBackgroundColor(Color.rgb(180,0,0))
 
             button.setOnClickListener {
+
+                if (module.name.contains("IBO", ignoreCase = true)) {
+                    startActivity(Intent(this, IboActivity::class.java))
+                    return@setOnClickListener
+                }
+
                 val intent = Intent(this, XcoreModuleActivity::class.java)
 
                 intent.putExtra("name", module.name)

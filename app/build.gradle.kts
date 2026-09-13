@@ -17,7 +17,11 @@ android {
 
     signingConfigs {
         create("release") {
-            // As chaves reais serão inseridas via GitHub Secrets
+            val keystorePath = System.getenv("KEYSTORE_FILE") ?: ""
+            storeFile = file(keystorePath)
+            storePassword = System.getenv("KEYSTORE_PASSWORD")
+            keyAlias = System.getenv("KEY_ALIAS")
+            keyPassword = System.getenv("KEY_PASSWORD")
         }
     }
 

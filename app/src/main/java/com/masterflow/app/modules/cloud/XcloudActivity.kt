@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 
 class XcloudActivity : Activity() {
 
@@ -33,8 +34,8 @@ class XcloudActivity : Activity() {
         layout.addView(title)
 
         addButton(layout, "DEVICES") { show("Devices: ${deviceManager.listDevices().size}") }
-        addButton(layout, "MAC MANAGER") { show("MACs: ${macManager.listMacs().size}") }
-        addButton(layout, "DNS MANAGER") { show("DNS: ${dnsManager.listDns().size}") }
+        addButton(layout, "MAC MANAGER") { show("MACs: ${macManager.list().size}") }
+        addButton(layout, "DNS MANAGER") { show("DNS: ${if (dnsManager.getDns().isEmpty()) 0 else 1}") }
         addButton(layout, "AUTOMAÇÃO") { automationEngine.start(); show("Automação iniciada") }
         addButton(layout, "REVENDEDORES") { show("Revendas: ${resellerManager.listResellers().size}") }
 
@@ -49,7 +50,7 @@ class XcloudActivity : Activity() {
     }
 
     private fun show(message: String) {
-        android.widget.Toast.makeText(this, message, android.widget.Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun addButton(layout: LinearLayout, text: String, action: () -> Unit) {

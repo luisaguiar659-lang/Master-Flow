@@ -6,6 +6,10 @@
         android:icon="@drawable/xcore_icon">
 
         <activity
+            android:name=".modules.ibo.IboActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

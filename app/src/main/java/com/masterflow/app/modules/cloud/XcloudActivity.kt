@@ -10,6 +10,12 @@ import android.widget.TextView
 
 class XcloudActivity : Activity() {
 
+    private val deviceManager = XcloudDeviceManager()
+    private val macManager = XcloudMacManager()
+    private val dnsManager = XcloudDnsManager()
+    private val resellerManager = XcloudResellerManager()
+    private val automationEngine = XcloudAutomationEngine()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,24 +32,11 @@ class XcloudActivity : Activity() {
         title.gravity = Gravity.CENTER
         layout.addView(title)
 
-        val modules = listOf(
-            "DEVICES",
-            "MAC MANAGER",
-            "DNS MANAGER",
-            "AUTOMAÇÃO",
-            "REVENDEDORES"
-        )
-
-        modules.forEach { item ->
-            val button = Button(this)
-            button.text = item
-            button.setTextColor(Color.WHITE)
-            button.setBackgroundColor(Color.rgb(180,0,0))
-            layout.addView(
-                button,
-                LinearLayout.LayoutParams(-1,120)
-            )
-        }
+        addButton(layout, "DEVICES") { deviceManager.listDevices() }
+        addButton(layout, "MAC MANAGER") { macManager.listMacs() }
+        addButton(layout, "DNS MANAGER") { dnsManager.listDns() }
+        addButton(layout, "AUTOMAÇÃO") { automationEngine.start() }
+        addButton(layout, "REVENDEDORES") { resellerManager.listResellers() }
 
         val status = TextView(this)
         status.text = "\nCloud Engine ONLINE ✅"
@@ -53,5 +46,14 @@ class XcloudActivity : Activity() {
         layout.addView(status)
 
         setContentView(layout)
+    }
+
+    private fun addButton(layout: LinearLayout, text: String, action: () -> Unit) {
+        val button = Button(this)
+        button.text = text
+        button.setTextColor(Color.WHITE)
+        button.setBackgroundColor(Color.rgb(180,0,0))
+        button.setOnClickListener { action() }
+        layout.addView(button, LinearLayout.LayoutParams(-1,120))
     }
 }

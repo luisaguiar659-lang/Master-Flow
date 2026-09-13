@@ -12,48 +12,41 @@ class XcoreModuleActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val module = intent.getStringExtra("module") ?: "XCORE"
+        val name = intent.getStringExtra("name") ?: "XCORE"
+        val description = intent.getStringExtra("description") ?: ""
+        val version = intent.getStringExtra("version") ?: "1.0"
+        val status = intent.getStringExtra("status") ?: "OFFLINE"
 
         val layout = LinearLayout(this)
-
         layout.orientation = LinearLayout.VERTICAL
         layout.gravity = Gravity.CENTER
         layout.setPadding(40,40,40,40)
         layout.setBackgroundColor(Color.BLACK)
 
-
         val title = TextView(this)
-
-        title.text = "XCORE\n\n$module"
-
+        title.text = "XCORE\n\n$name"
         title.textSize = 28f
         title.setTextColor(Color.WHITE)
         title.gravity = Gravity.CENTER
-
-
         layout.addView(title)
 
-
         val info = TextView(this)
-
         info.text = """
             Sistema iniciado ✅
 
-            Módulo: $module
+            Módulo: $name
 
-            Versão: 1.0
+            Descrição: $description
 
-            Status: ONLINE
+            Versão: $version
+
+            Status: $status
         """.trimIndent()
-
 
         info.textSize = 18f
         info.setTextColor(Color.GRAY)
         info.gravity = Gravity.CENTER
-
-
         layout.addView(info)
-
 
         setContentView(layout)
     }

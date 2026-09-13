@@ -29,16 +29,15 @@ jobs:
 
       - name: Configurar Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.7
 
       - name: Criar keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > master-flow-release.jks
 
-      - name: Dar permissão ao Gradle Wrapper
-        run: chmod +x ./gradlew
-
       - name: Build APK Release Assinado
-        run: ./gradlew assembleRelease
+        run: gradle assembleRelease
 
       - name: Enviar APK Release
         uses: actions/upload-artifact@v4

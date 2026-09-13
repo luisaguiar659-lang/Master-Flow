@@ -12,8 +12,13 @@ import com.masterflow.app.modules.ibo.IboActivity
 
 class MainActivity : Activity() {
 
+    private lateinit var moduleManager: ModuleManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        moduleManager = ModuleManager()
+        moduleManager.startModules()
 
         val layout = LinearLayout(this)
         layout.orientation = LinearLayout.VERTICAL
@@ -39,7 +44,7 @@ class MainActivity : Activity() {
         subtitle.gravity = Gravity.CENTER
         layout.addView(subtitle)
 
-        val modules = ModuleManager().getModules()
+        val modules = moduleManager.getModules()
 
         modules.forEach { module ->
 
@@ -71,5 +76,10 @@ class MainActivity : Activity() {
         }
 
         setContentView(layout)
+    }
+
+    override fun onDestroy() {
+        moduleManager.stopModules()
+        super.onDestroy()
     }
 }

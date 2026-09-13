@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.graphics.Color
 import android.view.Gravity
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 
@@ -19,29 +20,37 @@ class XcloudActivity : Activity() {
         layout.setBackgroundColor(Color.BLACK)
 
         val title = TextView(this)
-        title.text = "XCORE CLOUD"
+        title.text = "XCORE CLOUD ENGINE"
         title.textSize = 28f
         title.setTextColor(Color.WHITE)
         title.gravity = Gravity.CENTER
-
         layout.addView(title)
 
-        val info = TextView(this)
-        info.text = """
-            Cloud Engine iniciado ✅
+        val modules = listOf(
+            "DEVICES",
+            "MAC MANAGER",
+            "DNS MANAGER",
+            "AUTOMAÇÃO",
+            "REVENDEDORES"
+        )
 
-            Dispositivos
-            MAC Manager
-            DNS Manager
-            Automação
-            Revendedores
-        """.trimIndent()
+        modules.forEach { item ->
+            val button = Button(this)
+            button.text = item
+            button.setTextColor(Color.WHITE)
+            button.setBackgroundColor(Color.rgb(180,0,0))
+            layout.addView(
+                button,
+                LinearLayout.LayoutParams(-1,120)
+            )
+        }
 
-        info.textSize = 18f
-        info.setTextColor(Color.GRAY)
-        info.gravity = Gravity.CENTER
-
-        layout.addView(info)
+        val status = TextView(this)
+        status.text = "\nCloud Engine ONLINE ✅"
+        status.textSize = 18f
+        status.setTextColor(Color.GRAY)
+        status.gravity = Gravity.CENTER
+        layout.addView(status)
 
         setContentView(layout)
     }

@@ -1,1 +1,1 @@
-{"expo":{"name":"XCORE","slug":"xcore","version":"1.0.0","android":{"package":"com.xcore.auto"},"orientation":"portrait","userInterfaceStyle":"dark"}}
+{"expo":{"name":"XCORE","slug":"xcore-auto","version":"1.0.0","orientation":"portrait","android":{"package":"com.xcore.auto"},"userInterfaceStyle":"dark","description":"XCORE Central de Automação"}}

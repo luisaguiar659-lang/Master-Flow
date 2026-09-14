@@ -1,0 +1,1 @@
+{"name":"xcore-app","version":"1.0.0","private":true,"scripts":{"start":"expo start","android":"expo run:android"},"dependencies":{"expo":"latest","react":"latest","react-native":"latest"}}

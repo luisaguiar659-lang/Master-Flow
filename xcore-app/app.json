@@ -1,1 +1,18 @@
-{"expo":{"name":"XCORE","slug":"xcore-auto","version":"1.0.0","orientation":"portrait","android":{"package":"com.xcore.auto"},"userInterfaceStyle":"dark","description":"XCORE Central de Automação"}}
+{
+  "expo": {
+    "name": "XCORE",
+    "slug": "xcore-auto",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "android": {
+      "package": "com.xcore.auto"
+    },
+    "userInterfaceStyle": "dark",
+    "description": "XCORE Central de Automação",
+    "extra": {
+      "eas": {
+        "projectId": "c28ac560-c04c-47ed-919a-b73cbb959d91"
+      }
+    }
+  }
+}

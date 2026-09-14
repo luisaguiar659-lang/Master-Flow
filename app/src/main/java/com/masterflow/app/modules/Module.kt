@@ -7,3 +7,8 @@ data class Module(
     val version: String,
     val status: String
 )
+
+interface ModuleEngine {
+    fun start(): Boolean
+    fun stop()
+}

@@ -12,8 +12,5 @@
     "expo": "latest",
     "react": "latest",
     "react-native": "latest"
-  },
-  "devDependencies": {
-    "eas-cli": "latest"
   }
 }

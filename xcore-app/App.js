@@ -48,6 +48,24 @@ function Dot({small = false}) {
   return <View style={[s.dot, small && s.dotSmall]} />;
 }
 
+const CORNER_POS = {
+  topLeft: {top: 6, left: 6},
+  topRight: {top: 6, right: 6},
+  bottomLeft: {bottom: 6, left: 6},
+  bottomRight: {bottom: 6, right: 6},
+};
+
+function CornerBracket({pos}) {
+  const isRight = pos.toLowerCase().includes('right');
+  const isBottom = pos.toLowerCase().includes('bottom');
+  return (
+    <View pointerEvents="none" style={[s.corner, CORNER_POS[pos]]}>
+      <View style={[s.cornerH, isRight && s.cornerHRight, isBottom && s.cornerHBottom]} />
+      <View style={[s.cornerV, isRight && s.cornerVRight, isBottom && s.cornerVBottom]} />
+    </View>
+  );
+}
+
 function XcoreLogo() {
   return (
     <View style={s.brand}>
@@ -105,6 +123,7 @@ function Module({item, width}) {
   const isImage = typeof item[0] !== 'string';
   return (
     <Pressable onPress={() => Soon(item[1])} style={({pressed}) => [s.module, {width}, pressed && s.pressed]}>
+      <View style={s.moduleGlow} />
       <View style={s.moduleCut} />
       <View style={s.moduleTopAccent} />
       <View style={s.moduleBottomAccent} />
@@ -144,6 +163,7 @@ function Nav({icon, label, active, badge, onPress}) {
   return (
     <Pressable onPress={onPress} style={s.navItem}>
       <View>
+        {active && <View pointerEvents="none" style={s.navGlow} />}
         <Text style={[s.navIcon, active && s.navActive]}>{icon}</Text>
         {badge && <View style={s.badge}><Text style={s.badgeText}>{badge}</Text></View>}
       </View>
@@ -170,6 +190,10 @@ export default function App() {
       <View style={s.root}>
         <View pointerEvents="none" style={s.sideRailLeft} />
         <View pointerEvents="none" style={s.sideRailRight} />
+        <CornerBracket pos="topLeft" />
+        <CornerBracket pos="topRight" />
+        <CornerBracket pos="bottomLeft" />
+        <CornerBracket pos="bottomRight" />
 
         <ScrollView
           style={s.scroll}
@@ -179,6 +203,8 @@ export default function App() {
           <View style={s.header}>
             <View style={s.headerFrameTop} />
             <View style={s.headerFrameTopGlow} />
+            <View style={[s.headerTick, s.headerTickL]} />
+            <View style={[s.headerTick, s.headerTickR]} />
             <View style={s.headerFrameBottom} />
             <XcoreLogo />
             <Pressable onPress={() => Soon('Notificações')} style={s.bell}>
@@ -192,9 +218,12 @@ export default function App() {
               <Text style={s.hello}>Olá, <Text style={s.bold}>Admin</Text></Text>
               <Text style={s.subHello}>Tudo funcionando perfeitamente!</Text>
             </View>
-            <View style={s.hero}>
-              <Text style={s.heroMark}>⌁</Text>
-              <View><Text style={s.heroText}>AUTOMAÇÃO</Text><Text style={s.heroText}>SEM LIMITES</Text></View>
+            <View style={s.heroWrap}>
+              <View style={s.heroTip} />
+              <View style={s.hero}>
+                <Text style={s.heroMark}>⌁</Text>
+                <View><Text style={s.heroText}>AUTOMAÇÃO</Text><Text style={s.heroText}>SEM LIMITES</Text></View>
+              </View>
             </View>
           </View>
 
@@ -245,9 +274,20 @@ const s = StyleSheet.create({
   sideRailLeft: {position: 'absolute', left: 0, top: 126, bottom: 88, width: 2, backgroundColor: RED, opacity: 0.72, zIndex: 5},
   sideRailRight: {position: 'absolute', right: 0, top: 126, bottom: 88, width: 2, backgroundColor: RED, opacity: 0.72, zIndex: 5},
 
+  corner: {position: 'absolute', width: 22, height: 22, zIndex: 6},
+  cornerH: {position: 'absolute', top: 0, left: 0, width: 22, height: 2.5, backgroundColor: RED, opacity: 0.85},
+  cornerHRight: {left: undefined, right: 0},
+  cornerHBottom: {top: undefined, bottom: 0},
+  cornerV: {position: 'absolute', top: 0, left: 0, width: 2.5, height: 22, backgroundColor: RED, opacity: 0.85},
+  cornerVRight: {left: undefined, right: 0},
+  cornerVBottom: {top: undefined, bottom: 0},
+
   header: {height: 128, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', position: 'relative', paddingHorizontal: 2, overflow: 'hidden'},
   headerFrameTop: {position: 'absolute', top: 2, left: '32%', width: '36%', height: 3, backgroundColor: RED},
-  headerFrameTopGlow: {position: 'absolute', top: 0, left: '38%', width: '24%', height: 8, backgroundColor: RED, opacity: 0.18},
+  headerFrameTopGlow: {position: 'absolute', top: 0, left: '38%', width: '24%', height: 8, backgroundColor: RED, opacity: 0.22},
+  headerTick: {position: 'absolute', top: 1.5, width: 8, height: 6, borderColor: RED, borderWidth: 2, opacity: 0.85, transform: [{rotate: '45deg'}]},
+  headerTickL: {left: '30%'},
+  headerTickR: {right: '30%'},
   headerFrameBottom: {position: 'absolute', left: 0, right: 0, bottom: 0, height: 1, backgroundColor: '#351010'},
   brand: {flex: 1, flexDirection: 'row', alignItems: 'center', minWidth: 0, paddingRight: 10},
   brandIconWrap: {width: 74, height: 74, borderRadius: 18, overflow: 'hidden', backgroundColor: '#090909', borderWidth: 1, borderColor: '#4a4a4a', shadowColor: RED, shadowOpacity: 0.75, shadowRadius: 11, elevation: 7},
@@ -266,14 +306,16 @@ const s = StyleSheet.create({
   welcomeText: {flex: 1, minWidth: 0},
   hello: {color: '#f5f5f5', fontSize: 24},
   subHello: {color: MUTED, fontSize: 12.5, marginTop: 3},
-  hero: {width: 142, minHeight: 63, borderWidth: 1, borderColor: RED, backgroundColor: '#100505', paddingHorizontal: 10, paddingVertical: 9, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7, shadowColor: RED, shadowOpacity: 0.28, shadowRadius: 8, elevation: 4},
+  heroWrap: {width: 148, minHeight: 63, flexDirection: 'row', alignItems: 'stretch'},
+  heroTip: {width: 10, backgroundColor: '#100505', borderWidth: 1, borderColor: RED, borderRightWidth: 0, transform: [{skewX: '-18deg'}], marginRight: -5},
+  hero: {flex: 1, borderWidth: 1, borderColor: RED, backgroundColor: '#100505', paddingHorizontal: 10, paddingVertical: 9, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7, shadowColor: RED, shadowOpacity: 0.28, shadowRadius: 8, elevation: 4},
   heroMark: {color: RED, fontSize: 27, fontWeight: '900'},
   heroText: {color: '#eee', fontSize: 8.7, fontWeight: '900', letterSpacing: 1.8},
 
   stats: {flexDirection: 'row', marginBottom: 19},
   stat: {height: 128, backgroundColor: PANEL, borderWidth: 1, borderColor: '#626262', borderRadius: 12, paddingHorizontal: 9, paddingVertical: 10, overflow: 'hidden', shadowColor: RED, shadowOpacity: 0.13, shadowRadius: 7, elevation: 3},
   statCut: {position: 'absolute', right: -8, top: -9, width: 31, height: 31, borderLeftWidth: 2, borderBottomWidth: 2, borderColor: '#8f2222', backgroundColor: '#190707', transform: [{rotate: '45deg'}]},
-  statGlow: {position: 'absolute', width: 70, height: 70, right: -24, bottom: -24, borderRadius: 40, backgroundColor: RED, opacity: 0.14},
+  statGlow: {position: 'absolute', width: 80, height: 80, right: -26, bottom: -28, borderRadius: 44, backgroundColor: RED, opacity: 0.19},
   iconBox: {width: 35, height: 35, borderRadius: 9, borderWidth: 1, borderColor: '#9f1717', backgroundColor: '#140707', alignItems: 'center', justifyContent: 'center', marginBottom: 7, shadowColor: RED, shadowOpacity: 0.38, shadowRadius: 5, elevation: 2},
   icon: {color: '#ff4040', fontWeight: '900', fontSize: 17},
   value: {color: '#fff', fontSize: 22, lineHeight: 25, fontWeight: '900'},
@@ -293,6 +335,7 @@ const s = StyleSheet.create({
 
   moduleRow: {flexDirection: 'row', marginBottom: 19},
   module: {height: 158, backgroundColor: '#0c0c0d', borderWidth: 1, borderColor: '#666', borderRadius: 12, paddingHorizontal: 10, paddingVertical: 9, overflow: 'hidden', shadowColor: RED, shadowOpacity: 0.12, shadowRadius: 7, elevation: 3},
+  moduleGlow: {position: 'absolute', width: 90, height: 90, left: -30, bottom: -34, borderRadius: 48, backgroundColor: RED, opacity: 0.16},
   moduleCut: {position: 'absolute', right: -7, top: -8, width: 38, height: 38, borderLeftWidth: 2, borderBottomWidth: 2, borderColor: RED, backgroundColor: '#180707', transform: [{rotate: '45deg'}]},
   moduleTopAccent: {position: 'absolute', left: 0, top: 0, width: 42, height: 2, backgroundColor: '#c9c9c9'},
   moduleBottomAccent: {position: 'absolute', left: 0, bottom: 0, width: 42, height: 2, backgroundColor: RED},
@@ -342,6 +385,7 @@ const s = StyleSheet.create({
   nav: {backgroundColor: '#080808', borderTopWidth: 1, borderTopColor: '#343434', flexDirection: 'row', alignItems: 'stretch', justifyContent: 'space-around', paddingHorizontal: 4, position: 'relative'},
   navTop: {position: 'absolute', top: -1, left: '8%', width: '17%', height: 3, backgroundColor: RED, shadowColor: RED, shadowOpacity: 1, shadowRadius: 7, elevation: 5},
   navItem: {flex: 1, alignItems: 'center', justifyContent: 'flex-start', paddingTop: 9, position: 'relative'},
+  navGlow: {position: 'absolute', width: 40, height: 40, left: '50%', top: -8, marginLeft: -20, borderRadius: 20, backgroundColor: RED, opacity: 0.22},
   navIcon: {color: '#9b9b9b', fontSize: 24, fontWeight: '700', lineHeight: 26},
   navActive: {color: '#fff', textShadowColor: RED, textShadowRadius: 10},
   navLabel: {color: '#999', fontSize: 9.5, marginTop: 2},

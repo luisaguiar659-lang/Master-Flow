@@ -38,6 +38,11 @@ jobs:
       - name: Verify Expo project
         run: npx expo-doctor@latest
 
+      - name: Verify JavaScript bundle
+        run: npx expo export --platform android --output-dir dist-test
+        env:
+          CI: true
+
       - name: Setup Expo
         run: npm install -g eas-cli
 

@@ -9,8 +9,8 @@
     "build:android": "eas build -p android"
   },
   "dependencies": {
-    "expo": "latest",
-    "react": "latest",
-    "react-native": "latest"
+    "expo": "57.0.22",
+    "react": "19.2.3",
+    "react-native": "0.86.3"
   }
 }

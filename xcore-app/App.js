@@ -29,9 +29,9 @@ const stats = [
 ];
 
 const modules = [
-  ['M', 'Masterflix', 'Streaming e Acessos'],
-  ['CLOUD', 'Automation Cloud', 'Keys e Ativações'],
-  ['IBO', 'Master IBO', 'Resets e Gerenciamento'],
+  [require('./assets/logo-masterflix.png'), 'Masterflix', 'Streaming e Acessos'],
+  [require('./assets/logo-xcloud.png'), 'Automation Cloud', 'Keys e Ativações'],
+  [require('./assets/logo-ibo.png'), 'Master IBO', 'Resets e Gerenciamento'],
 ];
 
 const recent = [
@@ -102,13 +102,16 @@ function Stat({item, width}) {
 }
 
 function Module({item, width}) {
+  const isImage = typeof item[0] !== 'string';
   return (
     <Pressable onPress={() => Soon(item[1])} style={({pressed}) => [s.module, {width}, pressed && s.pressed]}>
       <View style={s.moduleCut} />
       <View style={s.moduleTopAccent} />
       <View style={s.moduleBottomAccent} />
       <View style={s.moduleLogo}>
-        {item[0] === 'CLOUD' ? <CloudMark /> : <Text style={[s.moduleLogoText, item[0] === 'IBO' && s.ibo]}>{item[0]}</Text>}
+        {isImage
+          ? <Image source={item[0]} style={s.moduleLogoImg} resizeMode="contain" />
+          : <Text style={s.moduleLogoText}>{item[0]}</Text>}
       </View>
       <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.68} style={s.moduleTitle}>{item[1]}</Text>
       <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.64} style={s.moduleSub}>{item[2]}</Text>
@@ -294,6 +297,7 @@ const s = StyleSheet.create({
   moduleTopAccent: {position: 'absolute', left: 0, top: 0, width: 42, height: 2, backgroundColor: '#c9c9c9'},
   moduleBottomAccent: {position: 'absolute', left: 0, bottom: 0, width: 42, height: 2, backgroundColor: RED},
   moduleLogo: {height: 54, alignItems: 'center', justifyContent: 'center'},
+  moduleLogoImg: {width: '92%', height: '100%'},
   moduleLogoText: {color: '#e72d2d', fontSize: 46, lineHeight: 49, fontWeight: '900', textShadowColor: '#6b0808', textShadowRadius: 7},
   ibo: {color: '#eee', fontSize: 29, fontStyle: 'italic'},
   moduleTitle: {color: '#fff', fontSize: 13.5, lineHeight: 16, fontWeight: '900', marginTop: 2},

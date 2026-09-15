@@ -12,10 +12,6 @@
       "barStyle": "light-content",
       "translucent": false
     },
-    "androidNavigationBar": {
-      "backgroundColor": "#050505",
-      "barStyle": "light-content"
-    },
     "userInterfaceStyle": "dark",
     "description": "XCORE Central de Automação",
     "extra": {

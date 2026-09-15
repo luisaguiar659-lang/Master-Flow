@@ -32,6 +32,25 @@ jobs:
           rm -f package-lock.json
           npm install --no-audit --no-fund
 
+      - name: Normalize Android icon PNGs
+        run: |
+          python3 -m pip install --quiet pillow
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+
+          for filename in ('assets/icon.png', 'assets/adaptive-icon.png'):
+              path = Path(filename)
+              image = Image.open(path).convert('RGBA')
+              if image.size != (1024, 1024):
+                  image = image.resize((1024, 1024), Image.Resampling.LANCZOS)
+              tmp = path.with_name(path.stem + '-normalized.png')
+              image.save(tmp, format='PNG', optimize=False, compress_level=6)
+              tmp.replace(path)
+              Image.open(path).verify()
+              print(f'Normalized {path}')
+          PY
+
       - name: Align Expo SDK dependencies
         run: npx expo install --fix
         env:

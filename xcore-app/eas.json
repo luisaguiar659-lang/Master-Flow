@@ -6,6 +6,9 @@
   "build": {
     "preview": {
       "node": "22.14.0",
+      "env": {
+        "EAS_NO_FROZEN_LOCKFILE": "1"
+      },
       "android": {
         "buildType": "apk",
         "credentialsSource": "remote"
@@ -13,6 +16,9 @@
     },
     "production": {
       "node": "22.14.0",
+      "env": {
+        "EAS_NO_FROZEN_LOCKFILE": "1"
+      },
       "android": {
         "buildType": "apk",
         "credentialsSource": "remote"

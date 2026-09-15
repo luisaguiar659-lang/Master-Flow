@@ -1,4 +1,4 @@
-const { withAndroidStyles } = require('expo/config-plugins');
+const { withAndroidStyles } = require('@expo/config-plugins');
 
 function upsertItem(style, name, value) {
   style.item = style.item || [];

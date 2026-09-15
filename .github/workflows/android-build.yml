@@ -30,6 +30,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Align Expo SDK dependencies
+        run: npx expo install --fix
+        env:
+          CI: true
+
+      - name: Verify Expo project
+        run: npx expo-doctor@latest
+
       - name: Setup Expo
         run: npm install -g eas-cli
 

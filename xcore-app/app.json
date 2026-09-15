@@ -4,11 +4,14 @@
     "slug": "xcore-auto",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/xcore-header.jpg",
+    "icon": "./assets/icon.png",
+    "plugins": [
+      "./plugins/withAndroidSystemBars"
+    ],
     "android": {
       "package": "com.xcore.auto",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/xcore-header.jpg",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#050505"
       }
     },

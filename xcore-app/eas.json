@@ -10,6 +10,13 @@
         "buildType": "apk",
         "credentialsSource": "remote"
       }
+    },
+    "production": {
+      "node": "22.14.0",
+      "android": {
+        "buildType": "apk",
+        "credentialsSource": "remote"
+      }
     }
   }
 }

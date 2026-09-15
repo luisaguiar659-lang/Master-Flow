@@ -4,8 +4,13 @@
     "slug": "xcore-auto",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/xcore-header.jpg",
     "android": {
-      "package": "com.xcore.auto"
+      "package": "com.xcore.auto",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/xcore-header.jpg",
+        "backgroundColor": "#050505"
+      }
     },
     "androidStatusBar": {
       "backgroundColor": "#050505",

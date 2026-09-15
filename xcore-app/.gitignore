@@ -1,0 +1,8 @@
+node_modules/
+.expo/
+.DS_Store
+*.log
+xcore.keystore
+credentials.json
+.env
+.env.*
